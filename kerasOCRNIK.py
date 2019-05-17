@@ -29,7 +29,7 @@ num_classes = len(charset)
 
 
 def add_gaussian_noise(image):
-    gauss = np.random.normal(loc=0, scale=20, size=image.shape)
+    gauss = np.random.normal(loc=0, scale=5, size=image.shape)
     gauss = gauss.reshape(image.shape)
     noisy = image + gauss
     temp = noisy > 255
@@ -59,7 +59,6 @@ def make_random_image(font_file, c):
     paper = random.randint(140, 255)
     ink = random.randint(0, 90)
     font_size = random.randint(min_font, max_font)
-    underscore = bool(random.getrandbits(1))
     font = ImageFont.truetype(font_dir + font_file, font_size)
     left = random.choice(charset)
     right = random.choice(charset)
@@ -75,8 +74,8 @@ def make_random_image(font_file, c):
     canvas = cv2.cvtColor(canvas, cv2.COLOR_RGB2GRAY)
     canvas = crop_image_random(canvas)
     canvas = add_gaussian_noise(canvas)
-    if underscore:
-        canvas = add_line(canvas, ink)
+    id = uuid.uuid4().hex
+    cv2.imwrite('samples/' + c + id + '.jpg', canvas)
     return canvas
 
 
