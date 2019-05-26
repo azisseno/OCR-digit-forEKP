@@ -29,7 +29,7 @@ num_classes = len(charset)
 
 
 def add_gaussian_noise(image):
-    gauss = np.random.normal(loc=0, scale=5, size=image.shape)
+    gauss = np.random.normal(loc=0, scale=10, size=image.shape)
     gauss = gauss.reshape(image.shape)
     noisy = image + gauss
     temp = noisy > 255
